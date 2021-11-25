@@ -25,3 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('ajax',[AjaxController::class,'ajax']);
 Route::get('ajax/get',[AjaxController::class,'get']);
 Route::post('ajax/add',[AjaxController::class,'add']);
+Route::get('ajax/edit/{id}',[AjaxController::class,'edit']);
+Route::get('ajax/del/{id}',[AjaxController::class,'del']);
+Route::post('ajax/update/{id}',[AjaxController::class,'up']);
+//Route::post('ajax/update/{id}',[AjaxController::class,'update']);

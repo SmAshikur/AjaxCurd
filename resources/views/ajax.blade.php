@@ -11,7 +11,6 @@
         <div class="container p-5 bg-success" id="app"  >
             <div class="mb-5 bg-danger">
                 <marquee> <h1 class="text-success b">Ajax curd</h1></marquee>
-                <button id="butOne">clcgcnc</button>
             </div>
             <div class="row">
                     <div class="col-md-8">
@@ -57,6 +56,7 @@
                                         <textarea class="form-contorl" id="address"></textarea><br>
                                         <span id="addressError" class="text-danger"></span>
                                     </div>
+                                    <input type="hidden" id="id">
                                </div>
                                 <div class="card-footer">
                                     <div class="form-group d-flex justify-content-center">
@@ -96,8 +96,8 @@
                                 <td>'+value.id+'</td>\
                                 <td>'+value.name+'</td>\
                                 <td>'+value.address+'</td>\
-                                <td><button type="button" value="'+value.id+'" class="butOne">Edit</button></td>\
-                                <td><button value="'+value.id+'" class="butTwo">Add</button></td>\
+                                <td><button type="button" value="'+value.id+'" class="butOne btn btn-success">Edit</button></td>\
+                                <td><button value="'+value.id+'" class="butTwo btn btn-danger">Delete</button></td>\
                             </tr>');
                        })
 
@@ -106,10 +106,80 @@
                  });
 
                 }
+                $(document).on('click','.butTwo' ,function () {
+                    var x= $(this).val();
+                    //alert(x)
+                    $.ajaxSetup({
+                     headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                    $.ajax({
+                        type: "GET",
+                        url: "/ajax/del/"+x,
+                        success: function (response) {
+                            allData();
+                            console.log("Delete successfully")
+                        }
+
+                 });
+                });
                 $(document).on('click','.butOne',function () {
                             var x= $(this).val();
                             console.log(x)
+                            $('#b2').show();
+                            $('#b1').hide();
+                            $.ajax({
+                                type: "GET",
+                                url: "/ajax/edit/"+x,
+
+                                dataType: "json",
+                                success: function (data) {
+                                    $('#name').val(data.name);
+                                    $('#address').val(data.address);
+                                    $('#id').val(data.id);
+                                    console.log(data)
+                                }
+                            });
                     });
+
+                     $(document).on('click','#b2',function () {
+                        var name = $('#name').val();
+                        var address = $('#address').val();
+                        var x = $('#id').val();
+                       /// $.ajax({
+                        ////    type: "POST",
+                         //   url: "ajax/update/"+x,
+                         ///   data: {name:name,address:address},
+                          ///  dataType: "json",
+                          ///  success: function (response) {
+                           ///     resetData()
+                            ///    allData();
+                            ////    console.log("update successfully")
+                           //// },error:function(error){
+                            ///    $("#nameError").text(error.responseJSON.errors.name)
+                           //    $("#addressError").text(error.responseJSON.errors.address)
+                            //    console.log(error.responseJSON.errors);
+                           /// }
+                       // });
+                       $.ajax({
+                           type: "POST",
+                           url: "ajax/update/"+x,
+                           data: {name:name,address:address},
+                           dataType: "json",
+                           success: function (response) {
+                            resetData();
+                            allData();
+                            $('#b2').hide();
+                            $('#b1').show();
+                            console.log("update successfully")
+                           },error:function(error){
+                                $("#nameError").text(error.responseJSON.errors.name)
+                               $("#addressError").text(error.responseJSON.errors.address)
+                              console.log(error.responseJSON.errors);
+                            }
+                       });
+                     });
 
                 function resetData(){
                     $("#nameError").text( '')

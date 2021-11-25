@@ -25,4 +25,24 @@ class AjaxController extends Controller
         ]);
         return response()->json($data);
     }
+    public function edit($id){
+        $data=Ajax::findOrFail($id);
+        return response()->json($data);
+    }
+    public function del($id){
+        $data=Ajax::findOrFail($id);
+        $data->delete();
+        return response()->json($data);
+    }
+    public function up(Request $request, $id){
+        $request->validate([
+            'name'=>'required|max:10',
+            'address'=>'required|max:10',
+        ]);
+        $data = Ajax::findOrFail($id);
+        $data->name =$request->name;
+        $data->address=$request->address;
+        $data->save();
+        return response()->json($data);
+    }
 }
