@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +30,10 @@ Route::get('ajax/edit/{id}',[AjaxController::class,'edit']);
 Route::get('ajax/del/{id}',[AjaxController::class,'del']);
 Route::post('ajax/update/{id}',[AjaxController::class,'up']);
 //Route::post('ajax/update/{id}',[AjaxController::class,'update']);
+
+Route::get('test',[TestController::class,'test']);
+Route::post('/test/add',[TestController::class,'add']);
+Route::get('/test/get',[TestController::class,'get']);
+Route::get('test/edit/{id}',[TestController::class,'edit']);
+Route::post('test/update/{id}',[TestController::class,'update']);
+Route::get('test/del/{id}',[TestController::class,'del']);

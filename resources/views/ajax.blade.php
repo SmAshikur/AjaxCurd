@@ -90,6 +90,7 @@
                     datatype:'json',
                     url:"/ajax/get",
                     success: function(response){
+                        console.log(response)
                         $('tbody').html(" ")
                        $.each(response, function(key,value){
                             $('tbody').append('<tr>\
@@ -109,20 +110,15 @@
                 $(document).on('click','.butTwo' ,function () {
                     var x= $(this).val();
                     //alert(x)
-                    $.ajaxSetup({
-                     headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
                     $.ajax({
-                        type: "GET",
-                        url: "/ajax/del/"+x,
-                        success: function (response) {
-                            allData();
-                            console.log("Delete successfully")
-                        }
+                            type: "GET",
+                            url: "/ajax/del/"+x,
+                            success: function (response) {
+                                allData();
+                                console.log("Delete successfully")
+                            }
 
-                 });
+                        });
                 });
                 $(document).on('click','.butOne',function () {
                             var x= $(this).val();
@@ -132,7 +128,6 @@
                             $.ajax({
                                 type: "GET",
                                 url: "/ajax/edit/"+x,
-
                                 dataType: "json",
                                 success: function (data) {
                                     $('#name').val(data.name);
