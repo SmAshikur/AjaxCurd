@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,10 @@ Route::get('/test/get',[TestController::class,'get']);
 Route::get('test/edit/{id}',[TestController::class,'edit']);
 Route::post('test/update/{id}',[TestController::class,'update']);
 Route::get('test/del/{id}',[TestController::class,'del']);
+//image
+Route::get('image',[ImageController::class,'image']);
+Route::post('/image/add',[ImageController::class,'add']);
+Route::get('/image/get',[ImageController::class,'get']);
+Route::get('image/edit/{id}',[ImageController::class,'edit']);
+Route::post('image/update/{id}',[ImageController::class,'update']);
+Route::get('image/del/{id}',[ImageController::class,'del']);

@@ -17,8 +17,8 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">
-                        <h3>Table</h3>
+                    <div class="card-header d-flex">
+                        <h3>Table</h3><button id="aTest" class="btn btn-success ml-auto">Add Test</button>
                     </div>
                     <div class="card-body">
                         <table class="table table-bodered table-stirped">
@@ -34,7 +34,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer justify-content-center">
+                    <div class="card-footer d-flex justify-content-center">
                         Thank you
                     </div>
                 </div>
@@ -86,6 +86,14 @@
                     }
                  });
             //add test
+            $(document).on('click','#aTest', function () {
+                $("#btTwo").hide();
+                $("#editTest").hide();
+                $("#btOne").show();
+                $("#addTest").show();
+                reset();
+            });
+
             $(document).on('click','#btOne', function () {
                 var name= $('#name').val();
                 var address= $('#address').val();

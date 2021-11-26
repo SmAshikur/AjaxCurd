@@ -13,6 +13,7 @@ class TestController extends Controller
 
     public function get(){
         $data= Test::orderBy('id','DESC')->get();
+       // return view('test',compact('data'));
         return response()->json($data);
     }
 
